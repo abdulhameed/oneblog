@@ -10,7 +10,7 @@ def blog_list(request):
 
 def post_detail(request, pk):
     post = get_object_or_404(BlogPost, pk=pk)
-    return render(request, 'myapp/post_detail.html', {'post': post})
+    return render(request, 'blog/post_detail.html', {'post': post})
 
 
 def create_post(request):
