@@ -8,6 +8,11 @@ def blog_list(request):
     return render(request, 'blog/blog_list.html', {'posts':posts})
 
 
+def post_detail(request, pk):
+    post = get_object_or_404(BlogPost, pk=pk)
+    return render(request, 'myapp/post_detail.html', {'post': post})
+
+
 def create_post(request):
     if request.method == 'POST':
         form = BlogPostForm(request.POST)
@@ -29,3 +34,13 @@ def edit_post(request, pk):
     else:
         form = BlogPostForm()
     return render(request, 'blog/edit_post.html', {'form':form})
+
+
+def delete_post(request, pk):
+    post = get_object_or_404(BlogPost, pk=pk)
+
+    if request.method == 'POST':
+        post.delete()
+        return redirect('blog_list')
+
+    return render(request, 'blog/delete_post.html', {'post': post})

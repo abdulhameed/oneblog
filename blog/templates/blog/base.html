@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}OneBlog{% endblock %}</title>
+</head>
+<body>
+    <div style="display: flex;
+     justify-content: space-between; 
+     align-items: center; background-color: #f2f2f2; 
+     padding: 10px;">
+        <div style="font-size: 24px;">ONEBLOG</div>
+        <nav>
+            <a href="{% url 'create_post' %}">Create Post</a>
+        </nav>
+    </div>
+
+    <div style="padding: 20px;">
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>
