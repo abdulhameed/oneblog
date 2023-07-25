@@ -199,3 +199,8 @@ aphrc/apps/projects/__pycache__/*
 
 **/projects/__pycache__/*
 
+# Ignore database file
+db.sqlite3
+
+# Ignore Python compiled bytecode
+*.pyc
