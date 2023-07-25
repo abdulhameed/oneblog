@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 # from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from .forms import CustomUserCreationForm
 
 def register(request):
@@ -12,7 +12,7 @@ def register(request):
             return redirect('login')
     else:
         form = CustomUserCreationForm()
-    return render(request, 'registration/register.html', {'form': form})
+    return render(request, 'accounts/register.html', {'form': form})
 
 
 def user_login(request):
@@ -27,4 +27,9 @@ def user_login(request):
                 return redirect('profile')  # Redirect to the user's profile after successful login
     else:
         form = AuthenticationForm()
-    return render(request, 'registration/login.html', {'form': form})
+    return render(request, 'accounts/login.html', {'form': form})
+
+
+def user_logout(request):
+    logout(request)
+    return redirect('blog_list')  # Redirect to a specific URL after logout
