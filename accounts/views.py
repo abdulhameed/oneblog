@@ -3,10 +3,21 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate, login, logout
 from .forms import CustomUserCreationForm
+from django.contrib.auth.decorators import login_required
+from blog.models import BlogPost
+
+
+
+@login_required
+def profile(request):
+    user = request.user
+    posts = BlogPost.objects.filter(author=user)
+    return render(request, 'accounts/profile.html', {'user': user, 'posts': posts})
+
 
 def register(request):
     if request.method == 'POST':
-        form = CustomUserCreationForm(request.POST)
+        form = CustomUserCreationForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             return redirect('login')

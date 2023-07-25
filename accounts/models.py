@@ -10,6 +10,7 @@ class CustomUser(AbstractUser):
         null=True
         )
     bio = models.TextField(blank=True)
+    profile_picture = models.ImageField(upload_to='profile_pics/', blank=True, null=True, default='profile_pics/default.jpg')
 
-    # python3 manage.py makemigrations
-    # python3 manage.py migrate
+    #1 python3 manage.py makemigrations
+    #2 python3 manage.py migrate

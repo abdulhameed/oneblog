@@ -1,0 +1,49 @@
+{% extends "blog/base.html" %}
+{% load static %}
+{% block title %}Profile | OneBlog{% endblock %}
+
+{% block content %}
+    <div style="display: flex; justify-content: space-between;">
+        <div style="width: 20%; padding: 20px; background-color: #f2f2f2;">
+            <h3>User Profile</h3>
+            <!-- Profile picture -->
+            {% if user.profile_picture %}
+        <img src="{{ user.profile_picture.url }}" alt="Profile Picture" class="rounded-circle img-thumbnail" style="width: 120px; height: 120px; object-fit: cover;">
+            {% else %}
+        <img src="{% static 'profile_pics/default.jpg' %}" alt="Default Profile Picture" class="rounded-circle img-thumbnail" style="width: 120px; height: 120px; object-fit: cover;">
+            {% endif %}
+            <ul>
+                <li><a href="#view-profile" data-toggle="tab">View Profile</a></li>
+                <li><a href="#edit-profile" data-toggle="tab">Edit Profile</a></li>
+                <li><a href="#user-posts" data-toggle="tab">User Posts</a></li>
+            </ul>
+        </div>
+        <div style="width: 75%; padding: 20px;">
+            <div class="tab-content">
+                <div id="view-profile" class="tab-pane fade in active">
+                    <h2>View Profile</h2>
+                    <p>Username: {{ user.username }}</p>
+                    <p>Email: {{ user.email }}</p>
+                    <!-- Add any other profile details you want to display -->
+                </div>
+                <div id="edit-profile" class="tab-pane fade">
+                    <h2>Edit Profile</h2>
+                    <!-- Add an edit profile form here -->
+                </div>
+                <div id="user-posts" class="tab-pane fade">
+                    <h2>User Posts</h2>
+                    {% if posts %}
+                        <ul>
+                            {% for post in posts %}
+                                <li>{{ post.title }}</li>
+                                <!-- Display other post details as needed -->
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <p>No posts yet. <a href="{% url 'create_post' %}">Create a post</a>.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
