@@ -26,14 +26,15 @@ def create_post(request):
 
 def edit_post(request, pk):
     post = get_object_or_404(BlogPost, pk=pk)
-    if request.method == 'POST':
-        form = BlogPostForm(request.POST, instance=post)
-        if form.is_valid():
-            form.save()
-            return redirect(blog_list)
-    else:
-        form = BlogPostForm(instance=post)
-    return render(request, 'blog/edit_post.html', {'form':form})
+    if request.user == post.author:
+        if request.method == 'POST':
+            form = BlogPostForm(request.POST, instance=post)
+            if form.is_valid():
+                form.save()
+                return redirect(blog_list)
+        else:
+            form = BlogPostForm(instance=post)
+        return render(request, 'blog/edit_post.html', {'form':form})
 
 
 def delete_post(request, pk):
