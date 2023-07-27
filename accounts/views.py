@@ -5,6 +5,7 @@ from django.contrib.auth import authenticate, login, logout
 from .forms import CustomUserCreationForm
 from django.contrib.auth.decorators import login_required
 from blog.models import BlogPost
+from .forms import CustomUserChangeForm
 
 
 
@@ -44,3 +45,18 @@ def user_login(request):
 def user_logout(request):
     logout(request)
     return redirect('blog_list')  # Redirect to a specific URL after logout
+
+
+@login_required
+def edit_profile(request):
+    user = request.user
+
+    if request.method == 'POST':
+        form = CustomUserChangeForm(request.POST, request.FILES, instance=user)
+        if form.is_valid():
+            form.save()
+            return redirect('my_profile')
+    else:
+        form = CustomUserChangeForm(instance=user)
+
+    return render(request, 'accounts/edit_profile.html', {'form': form})

@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import BlogPost
 from .forms import BlogPostForm
@@ -13,15 +14,18 @@ def post_detail(request, pk):
     return render(request, 'blog/post_detail.html', {'post': post})
 
 
+@login_required  # This decorator ensures only authenticated users can access the view
 def create_post(request):
     if request.method == 'POST':
         form = BlogPostForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect(blog_list)
+            post = form.save(commit=False)  # Save the form data but don't commit it to the database yet
+            post.author = request.user  # Set the author to the currently logged-in user
+            post.save()  # Now save the post with the author information
+            return redirect('blog_list')
     else:
         form = BlogPostForm()
-    return render(request, 'blog/create_post.html', {'form':form})
+    return render(request, 'blog/create_post.html', {'form': form})
 
 
 def edit_post(request, pk):
