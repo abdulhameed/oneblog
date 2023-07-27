@@ -13,7 +13,8 @@ from .forms import CustomUserChangeForm
 def profile(request):
     user = request.user
     posts = BlogPost.objects.filter(author=user)
-    return render(request, 'accounts/profile.html', {'user': user, 'posts': posts})
+    form = CustomUserChangeForm(instance=user)
+    return render(request, 'accounts/profile.html', {'user': user, 'posts': posts, 'form': form})
 
 
 def register(request):
