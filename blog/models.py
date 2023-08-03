@@ -17,7 +17,7 @@ class BlogPost(models.Model):
         return self.title
     
 
-class comments(models.Model):
+class Comments(models.Model):
     post = models.ForeignKey(BlogPost, on_delete=models.CASCADE, related_name='comments')
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     text = models.TextField()
