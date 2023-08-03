@@ -68,4 +68,17 @@ form button[type="submit"] {
     cursor: pointer;
     border-radius: 5px;
 }
+
+/* Style for the commenter's name */
+.commenter {
+    color: #3498db; /* Change to your desired color */
+    font-weight: bold;
+}
+
+/* Style for the comment content */
+.comment-content {
+    font-size: 16px; /* Change to your desired font size */
+    margin-left: 20px; /* Indent the comment content */
+}
+
 </style>

@@ -14,9 +14,8 @@
 
 
     <div>
-        <dir>
             <hr>
-        </dir>
+        </div>
 
         <!-- Add Comment Button -->
 <a href="{% url 'add_comment_to_post' pk=post.pk %}" class="btn btn-primary mt-4">
@@ -26,14 +25,17 @@
         {% comment %}<h3>Add Comment</h3>{% endcomment %}
         {% for comment in post.comments.all %}
     <div class="comment">
-        <p class="comment-info">{{ comment.author.username }} commented on {{ comment.created_at }}</p>
-        <p>{{ comment.text }}</p>
+        <p class="commenter">{{ comment.author.username }} commented on {{ comment.created_at }}</p>
+        <div class="comment-content">
+            <p>{{ comment.text }}</p>
+        </div>
+        
     </div>
         {% empty %}
         <p>No comments yet.</p>
         {% endfor %}
 
     </div>
-
+        
     <a href="{% url 'blog_list' %}">Back to Blog List</a>
 {% endblock %}
